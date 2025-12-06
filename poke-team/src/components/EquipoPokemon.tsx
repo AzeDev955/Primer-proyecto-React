@@ -31,7 +31,7 @@ export function EquipoPokemon({ equipo, onRemove }: EquipoPokemonProps) {
                     className="tarjeta-pokemon"
                   >
                     <h1>{index + 1}</h1>
-                    <img src={pokemon.sprite} alt="" />
+                    <img src={pokemon.sprite} alt={pokemon.nombre} />
                     <h3>{pokemon.nombre}</h3>
                     <button onClick={() => onRemove(pokemon)}>
                       Dejar en pc
