@@ -3,34 +3,37 @@ import "../App.css";
 import { useState, useEffect } from "react";
 
 const estiloBoton = {
-  backgroundColor: "#D32F2F", // Un rojo profundo y sólido
+  backgroundColor: "#D32F2F",
   color: "white",
-  padding: "8px 16px", // Espacio interno
-  borderRadius: "5px", // Esquinas redondeadas
-  border: "none", // Quitamos el borde gris por defecto
-  cursor: "pointer", // Indicamos que es clickable
-  fontWeight: "bold", // Texto en negrita para mejor lectura
-  marginTop: "10px", // Separación de los datos de Vida
+  padding: "8px 16px",
+  borderRadius: "5px",
+  border: "none",
+  cursor: "pointer",
+  fontWeight: "bold",
+  marginTop: "10px",
+};
+
+const capitalize = (s: string) => {
+  if (!s) return s; // Si el nombre está vacío o es null, devuelve vacío.
+  // Toma la primera letra, la pone en mayúscula, y le añade el resto del string.
+  return s.charAt(0).toUpperCase() + s.slice(1);
 };
 interface PokedexProps {
-  onAdd: (pokemon: Pokemon) => void; // Recibe una función que no devuelve nada
+  onAdd: (pokemon: Pokemon) => void;
 }
 
 export function Pokedex({ onAdd }: PokedexProps) {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=100") // 1. Llamamos a la API
-      .then((response) => response.json()) // 2. Convertimos la respuesta a JSON
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
+      .then((response) => response.json())
       .then((data) => {
-        // 3. Aquí tenemos los datos
-
-        // data.results es la lista cruda de la API. Vamos a limpiarla:
         const listaLimpia = data.results.map((pokemon: any, index: number) => ({
           id: index + 1,
-          nombre: pokemon.name,
-          nivel: Math.floor(Math.random() * 100) + 1, // Generamos nivel al azar
-          vida: Math.floor(Math.random() * 500) + 1, // Generamos vida al azar
+          nombre: capitalize(pokemon.name),
+          nivel: Math.floor(Math.random() * 100) + 1,
+          vida: Math.floor(Math.random() * 500) + 1,
           sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
             index + 1
           }.png`,

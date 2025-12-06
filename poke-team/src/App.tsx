@@ -24,6 +24,15 @@ function App() {
       return;
     }
   };
+
+  const removeFromTeam = (pokemon: Pokemon) => {
+    if (team.length > 0) {
+      const nuevoEquipo = team.filter((p) => p.id !== pokemon.id);
+      setTeam(nuevoEquipo);
+    } else {
+      alert("No tienes pokamions");
+    }
+  };
   const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     const items = Array.from(team);
@@ -37,7 +46,10 @@ function App() {
       <div className="tablero-juego">
         <div className="columna">
           <DragDropContext onDragEnd={handleOnDragEnd}>
-            <EquipoPokemon equipo={team}></EquipoPokemon>
+            <EquipoPokemon
+              equipo={team}
+              onRemove={removeFromTeam}
+            ></EquipoPokemon>
           </DragDropContext>
         </div>
         <div className="columna">

@@ -12,7 +12,7 @@ export function Header() {
         marginBottom: "5vh",
       }}
     >
-      <h1>Tu equipo Pokemon</h1>
+      <h1 id="titulo">Tu equipo Pokemon</h1>
     </header>
   );
 }
