@@ -3,23 +3,47 @@ import { Pokedex } from "./components/Pokedex";
 import { useState } from "react";
 import type { Pokemon } from "./types";
 import { EquipoPokemon } from "./components/EquipoPokemon";
+import { DragDropContext } from "@hello-pangea/dnd";
+import type { DropResult } from "@hello-pangea/dnd";
+import "./App.css";
+
 function App() {
   const [team, setTeam] = useState<Pokemon[]>([]);
 
   const addToTeam = (pokemon: Pokemon) => {
+    const enEquipo = team.some((p) => p.id === pokemon.id);
+    if (enEquipo) {
+      alert("Ya tienes este pokemon en el equipo");
+      return;
+    }
     if (team.length < 6) {
       setTeam([...team, pokemon]);
-      console.log("fichado! " + pokemon);
+      console.log("fichado! " + pokemon.nombre);
     } else {
       alert("Ya tienes 6 pokemons en el equipo");
       return;
     }
   };
+  const handleOnDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    const items = Array.from(team);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setTeam(items);
+  };
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+    <div className="contenedor-principal">
       <Header></Header>
-      <EquipoPokemon equipo={team}></EquipoPokemon>
-      <Pokedex onAdd={addToTeam}></Pokedex>
+      <div className="tablero-juego">
+        <div className="columna">
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <EquipoPokemon equipo={team}></EquipoPokemon>
+          </DragDropContext>
+        </div>
+        <div className="columna">
+          <Pokedex onAdd={addToTeam}></Pokedex>
+        </div>
+      </div>
     </div>
   );
 }

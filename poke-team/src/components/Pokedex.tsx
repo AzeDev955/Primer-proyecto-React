@@ -1,5 +1,5 @@
 import type { Pokemon } from "../types";
-
+import "../App.css";
 const pokemons: Pokemon[] = [
   {
     id: 1,
@@ -28,11 +28,9 @@ export function Pokedex({ onAdd }: PokedexProps) {
   return (
     <div>
       <h2>Pokedex</h2>
-      {pokemons.map((pokemon) => (
-        <div
-          key={pokemon.id}
-          style={{ border: "1px solid black", padding: "10px", margin: "10px" }}
-        >
+      {pokemons.map((pokemon, index) => (
+        <div key={pokemon.id} className="tarjeta-pokemon">
+          <h1>{index + 1}</h1>
           <h3>Nombre: {pokemon.nombre}</h3>
           <h3>Nivel: {pokemon.nivel}</h3>
           <h3>Vida: {pokemon.vida}</h3>
