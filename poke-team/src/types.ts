@@ -3,4 +3,5 @@ export interface Pokemon {
   nombre: string;
   nivel: number;
   vida: number;
+  sprite: string;
 }

@@ -30,6 +30,7 @@ export function EquipoPokemon({ equipo }: EquipoPokemonProps) {
                     className="tarjeta-pokemon"
                   >
                     <h1>{index + 1}</h1>
+                    <img src={pokemon.sprite} alt="" />
                     <h3>{pokemon.nombre}</h3>
                   </div>
                 )}
