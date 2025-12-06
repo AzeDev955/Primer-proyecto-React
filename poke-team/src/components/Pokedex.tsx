@@ -20,16 +20,23 @@ const pokemons: Pokemon[] = [
     vida: 1000,
   },
 ];
+interface PokedexProps {
+  onAdd: (pokemon: Pokemon) => void; // Recibe una función que no devuelve nada
+}
 
-export function Pokedex() {
+export function Pokedex({ onAdd }: PokedexProps) {
   return (
     <div>
       <h2>Pokedex</h2>
       {pokemons.map((pokemon) => (
-        <div>
+        <div
+          key={pokemon.id}
+          style={{ border: "1px solid black", padding: "10px", margin: "10px" }}
+        >
           <h3>Nombre: {pokemon.nombre}</h3>
           <h3>Nivel: {pokemon.nivel}</h3>
           <h3>Vida: {pokemon.vida}</h3>
+          <button onClick={() => onAdd(pokemon)}>Sacar pokemon</button>
         </div>
       ))}
     </div>
